@@ -1,21 +1,31 @@
-#include <Arduino.h>
+#include <WiFi.h>
 
-// put function declarations here:
-int LED_D4 = 12;
-int LED_D5 = 13;
-
+// Wi-Fi 网络名称和密码
+const char* ssid = "跞轩之家";
+const char* password = "13763333092";
 
 void setup() {
-pinMode(LED_D4,OUTPUT);
-pinMode(LED_D5,OUTPUT);
+  // 初始化串口通信
+  Serial.begin(115200);
+  delay(100);
+
+  // 开始连接 Wi-Fi
+  Serial.println("正在连接到 Wi-Fi...");
+  WiFi.begin(ssid, password);
+
+  // 等待连接
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(1000);
+    Serial.print(".");
+  }
+
+  // 连接成功
+  Serial.println("\nWi-Fi 已连接!");
+  Serial.print("IP 地址: ");
+  Serial.println(WiFi.localIP());
 }
 
 void loop() {
-  digitalWrite(LED_D4, LOW);
-  digitalWrite(LED_D5, HIGH);
-  delay(1000);
-  digitalWrite(LED_D4, HIGH);
-  digitalWrite(LED_D5, LOW);
+  // 在主循环中可以添加其他逻辑
   delay(1000);
 }
-
